@@ -84,7 +84,7 @@
     .phone {
       width: 390px;
       max-width: 100%;
-      aspect-ratio: 9 / 18.5;
+      aspect-ratio: 9 / 19.5;
       background: var(--bezel);
       border-radius: 48px;
       padding: 10px;
@@ -110,7 +110,7 @@
       z-index: 10;
     }
 
-    /* Side button accents */
+    /* Side button */
     .phone::after {
       content: '';
       position: absolute;
@@ -162,24 +162,89 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 16px 28px 6px;
+      padding: 16px 28px 4px;
       font-size: 8px;
       position: relative;
       z-index: 2;
+      flex-shrink: 0;
     }
 
     .status-bar .time { font-family: var(--pixel-bold); }
     .status-bar .indicators { display: flex; gap: 8px; align-items: center; font-size: 7px; }
 
-    /* ---- App Area ---- */
-    .app-area {
+    /* ---- Widget ---- */
+    .widget {
+      margin: 8px 20px 4px;
+      padding: 12px 16px;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 20px;
+      position: relative;
+      z-index: 1;
+      flex-shrink: 0;
+    }
+
+    .widget-date {
+      font-size: 10px;
+      font-family: var(--pixel-bold);
+      background: linear-gradient(135deg, var(--accent), var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 4px;
+    }
+
+    .widget-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .widget-sub {
+      font-size: 7px;
+      color: var(--text-dim);
+    }
+
+    .widget-stat {
+      font-size: 7px;
+      color: var(--text-dim);
+      display: flex;
+      gap: 10px;
+    }
+
+    .widget-stat em {
+      font-style: normal;
+      color: var(--text);
+    }
+
+    /* ---- Pages Container (swipeable) ---- */
+    .pages-viewport {
       flex: 1;
+      overflow: hidden;
+      position: relative;
+      z-index: 1;
+      min-height: 0;
+    }
+
+    .pages-track {
+      display: flex;
+      width: 200%;
+      height: 100%;
+      transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .pages-track.dragging { transition: none; }
+
+    .page {
+      width: 50%;
+      height: 100%;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 20px 16px 12px;
-      position: relative;
-      z-index: 1;
+      padding: 12px 16px;
+      overflow-y: auto;
     }
 
     .app-grid {
@@ -188,6 +253,55 @@
       gap: 18px 8px;
       justify-items: center;
     }
+
+    /* ---- Page 2: Links ---- */
+    .page-2-header {
+      font-size: 8px;
+      font-family: var(--pixel-bold);
+      color: var(--text-dim);
+      text-align: center;
+      margin-bottom: 14px;
+      letter-spacing: 1px;
+    }
+
+    .link-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 0 4px;
+    }
+
+    .link-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 14px;
+      text-decoration: none;
+      color: var(--text);
+      transition: background 0.15s ease;
+    }
+
+    .link-item:hover { background: rgba(255, 255, 255, 0.08); }
+    .link-item:active { transform: scale(0.97); }
+
+    .link-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .link-info { flex: 1; min-width: 0; }
+    .link-name { font-size: 8px; margin-bottom: 2px; }
+    .link-desc { font-size: 6px; color: var(--text-dim); line-height: 1.4; }
+    .link-arrow { font-size: 10px; color: var(--text-dim); flex-shrink: 0; }
 
     /* ---- App Icon ---- */
     .app {
@@ -252,9 +366,10 @@
       display: flex;
       justify-content: center;
       gap: 6px;
-      padding: 10px 0 6px;
+      padding: 8px 0 6px;
       position: relative;
       z-index: 1;
+      flex-shrink: 0;
     }
 
     .page-dots span {
@@ -262,6 +377,8 @@
       height: 6px;
       border-radius: 50%;
       background: rgba(255, 255, 255, 0.2);
+      transition: background 0.25s ease;
+      cursor: pointer;
     }
 
     .page-dots span.active { background: rgba(255, 255, 255, 0.8); }
@@ -280,6 +397,7 @@
       border-radius: 26px;
       position: relative;
       z-index: 1;
+      flex-shrink: 0;
     }
 
     .dock .app { gap: 4px; }
@@ -293,6 +411,7 @@
       padding: 6px 0 4px;
       position: relative;
       z-index: 1;
+      flex-shrink: 0;
     }
 
     .home-indicator span {
@@ -317,20 +436,25 @@
     .i-profile    { background: linear-gradient(135deg, #2dd4bf, #0d9488); }
     .i-explorer   { background: linear-gradient(135deg, #60a5fa, #2563eb); }
     .i-chat       { background: linear-gradient(135deg, #4ade80, #16a34a); }
+    .i-github     { background: linear-gradient(135deg, #6b7280, #374151); }
+    .i-landing    { background: linear-gradient(135deg, #8b5cf6, #6d28d9); }
+    .i-protocol   { background: linear-gradient(135deg, #f472b6, #db2777); }
+    .i-sdk        { background: linear-gradient(135deg, #fb923c, #ea580c); }
+    .i-discord    { background: linear-gradient(135deg, #818cf8, #5b21b6); }
 
     /* ---- Focus & a11y ---- */
-    .app:focus-visible {
+    .app:focus-visible, .link-item:focus-visible {
       outline: 2px solid var(--accent);
       outline-offset: 4px;
       border-radius: 8px;
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .app, .app-icon { transition: none; }
+      .app, .app-icon, .link-item, .pages-track { transition: none; }
     }
 
     /* ---- Mobile: native launcher mode ---- */
-    @media (max-width: 440px) {
+    @media (max-width: 500px) {
       body {
         padding: 0;
         justify-content: flex-start;
@@ -359,25 +483,13 @@
         padding-top: max(16px, env(safe-area-inset-top, 16px));
       }
 
-      .app-area { padding: 24px 20px 12px; }
+      .widget { margin: 8px 16px 4px; }
       .app-grid { gap: 22px 12px; }
-
       .dock { margin: 0 10px 4px; }
 
       .home-indicator {
         padding-bottom: max(4px, env(safe-area-inset-bottom, 4px));
       }
-    }
-
-    /* Larger phones / small tablets */
-    @media (min-width: 441px) and (max-width: 500px) {
-      .phone { width: 100%; border-radius: 0; padding: 0; box-shadow: none; background: transparent; aspect-ratio: unset; min-height: 100vh; min-height: 100dvh; }
-      .phone::before, .phone::after { display: none; }
-      .screen { border-radius: 0; }
-      .header { display: none; }
-      body { padding: 0; justify-content: flex-start; background: var(--screen-bg); }
-      body::before { display: none; }
-      .status-bar { padding-top: max(16px, env(safe-area-inset-top, 16px)); }
     }
   </style>
 </head>
@@ -397,56 +509,133 @@
         </div>
       </div>
 
-      <div class="app-area">
-        <div class="app-grid">
-          <a class="app" href="https://corvid-agent.github.io/weather-dashboard/" target="_blank" rel="noopener">
-            <div class="app-icon i-weather">&#x26C5;</div>
-            <span class="app-label">Weather</span>
-          </a>
-          <a class="app" href="https://corvid-agent.github.io/bw-cinema/" target="_blank" rel="noopener">
-            <div class="app-icon i-cinema">&#x1F3AC;</div>
-            <span class="app-label">Cinema</span>
-          </a>
-          <a class="app" href="https://corvid-agent.github.io/space-dashboard/" target="_blank" rel="noopener">
-            <div class="app-icon i-space">&#x1F680;</div>
-            <span class="app-label">Space</span>
-          </a>
-          <a class="app" href="https://corvid-agent.github.io/pd-gallery/" target="_blank" rel="noopener">
-            <div class="app-icon i-gallery">&#x1F3A8;</div>
-            <span class="app-label">Gallery</span>
-          </a>
-          <a class="app" href="https://corvid-agent.github.io/pd-audiobooks/" target="_blank" rel="noopener">
-            <div class="app-icon i-audiobooks">&#x1F3A7;</div>
-            <span class="app-label">Audiobooks</span>
-          </a>
-          <a class="app" href="https://corvid-agent.github.io/poetry-atlas/" target="_blank" rel="noopener">
-            <div class="app-icon i-poetry">&#x1F4DC;</div>
-            <span class="app-label">Poetry</span>
-          </a>
-          <a class="app" href="https://corvid-agent.github.io/quake-tracker/" target="_blank" rel="noopener">
-            <div class="app-icon i-quake">&#x1F30D;</div>
-            <span class="app-label">Quake</span>
-          </a>
-          <a class="app" href="https://corvid-agent.github.io/pd-music/" target="_blank" rel="noopener">
-            <div class="app-icon i-music">&#x1F3B5;</div>
-            <span class="app-label">Music</span>
-          </a>
-          <a class="app" href="https://corvid-agent.github.io/pixel-forge/" target="_blank" rel="noopener">
-            <div class="app-icon i-pixel">&#x270F;&#xFE0F;</div>
-            <span class="app-label">Pixel Forge</span>
-          </a>
-          <a class="app" href="https://corvid-agent.github.io/retro-arcade/" target="_blank" rel="noopener">
-            <div class="app-icon i-arcade">&#x1F579;&#xFE0F;</div>
-            <span class="app-label">Arcade</span>
-          </a>
+      <!-- Date/stats widget -->
+      <div class="widget">
+        <div class="widget-date" id="widget-date">Tuesday, Feb 18</div>
+        <div class="widget-row">
+          <span class="widget-sub">built autonomously</span>
+          <div class="widget-stat">
+            <span><em id="w-repos">--</em> apps</span>
+            <span><em id="w-repos-total">--</em> repos</span>
+          </div>
         </div>
       </div>
 
-      <div class="page-dots">
-        <span class="active"></span>
-        <span></span>
+      <!-- Swipeable pages -->
+      <div class="pages-viewport" id="viewport">
+        <div class="pages-track" id="track">
+
+          <!-- Page 1: Apps -->
+          <div class="page">
+            <div class="app-grid">
+              <a class="app" href="https://corvid-agent.github.io/weather-dashboard/" target="_blank" rel="noopener">
+                <div class="app-icon i-weather">&#x26C5;</div>
+                <span class="app-label">Weather</span>
+              </a>
+              <a class="app" href="https://corvid-agent.github.io/bw-cinema/" target="_blank" rel="noopener">
+                <div class="app-icon i-cinema">&#x1F3AC;</div>
+                <span class="app-label">Cinema</span>
+              </a>
+              <a class="app" href="https://corvid-agent.github.io/space-dashboard/" target="_blank" rel="noopener">
+                <div class="app-icon i-space">&#x1F680;</div>
+                <span class="app-label">Space</span>
+              </a>
+              <a class="app" href="https://corvid-agent.github.io/pd-gallery/" target="_blank" rel="noopener">
+                <div class="app-icon i-gallery">&#x1F3A8;</div>
+                <span class="app-label">Gallery</span>
+              </a>
+              <a class="app" href="https://corvid-agent.github.io/pd-audiobooks/" target="_blank" rel="noopener">
+                <div class="app-icon i-audiobooks">&#x1F3A7;</div>
+                <span class="app-label">Audiobooks</span>
+              </a>
+              <a class="app" href="https://corvid-agent.github.io/poetry-atlas/" target="_blank" rel="noopener">
+                <div class="app-icon i-poetry">&#x1F4DC;</div>
+                <span class="app-label">Poetry</span>
+              </a>
+              <a class="app" href="https://corvid-agent.github.io/quake-tracker/" target="_blank" rel="noopener">
+                <div class="app-icon i-quake">&#x1F30D;</div>
+                <span class="app-label">Quake</span>
+              </a>
+              <a class="app" href="https://corvid-agent.github.io/pd-music/" target="_blank" rel="noopener">
+                <div class="app-icon i-music">&#x1F3B5;</div>
+                <span class="app-label">Music</span>
+              </a>
+              <a class="app" href="https://corvid-agent.github.io/pixel-forge/" target="_blank" rel="noopener">
+                <div class="app-icon i-pixel">&#x270F;&#xFE0F;</div>
+                <span class="app-label">Pixel Forge</span>
+              </a>
+              <a class="app" href="https://corvid-agent.github.io/retro-arcade/" target="_blank" rel="noopener">
+                <div class="app-icon i-arcade">&#x1F579;&#xFE0F;</div>
+                <span class="app-label">Arcade</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Page 2: Infrastructure & Links -->
+          <div class="page">
+            <div class="page-2-header">infrastructure</div>
+            <div class="link-list">
+              <a class="link-item" href="https://corvid-agent.github.io/" target="_blank" rel="noopener">
+                <div class="link-icon i-landing">&#x1F426;</div>
+                <div class="link-info">
+                  <div class="link-name">Landing Page</div>
+                  <div class="link-desc">Main site with features, stats, and packages</div>
+                </div>
+                <span class="link-arrow">&#x203A;</span>
+              </a>
+              <a class="link-item" href="https://github.com/corvid-agent/corvid-agent" target="_blank" rel="noopener">
+                <div class="link-icon i-github">&#x2699;&#xFE0F;</div>
+                <div class="link-info">
+                  <div class="link-name">Agent Core</div>
+                  <div class="link-desc">Orchestration, MCP tools, bridges, voice</div>
+                </div>
+                <span class="link-arrow">&#x203A;</span>
+              </a>
+              <a class="link-item" href="https://github.com/corvid-agent/corvid-agent-chat" target="_blank" rel="noopener">
+                <div class="link-icon i-chat">&#x1F4AC;</div>
+                <div class="link-info">
+                  <div class="link-name">AlgoChat Web</div>
+                  <div class="link-desc">Encrypted P2P messaging on Algorand</div>
+                </div>
+                <span class="link-arrow">&#x203A;</span>
+              </a>
+              <a class="link-item" href="https://github.com/CorvidLabs/ts-algochat" target="_blank" rel="noopener">
+                <div class="link-icon i-sdk">&#x1F4E6;</div>
+                <div class="link-info">
+                  <div class="link-name">ts-algochat SDK</div>
+                  <div class="link-desc">TypeScript SDK for AlgoChat protocol</div>
+                </div>
+                <span class="link-arrow">&#x203A;</span>
+              </a>
+              <a class="link-item" href="https://github.com/CorvidLabs/protocol-algochat" target="_blank" rel="noopener">
+                <div class="link-icon i-protocol">&#x1F4DC;</div>
+                <div class="link-info">
+                  <div class="link-name">AlgoChat Protocol</div>
+                  <div class="link-desc">ECDH + PSK ratcheting specification</div>
+                </div>
+                <span class="link-arrow">&#x203A;</span>
+              </a>
+              <a class="link-item" href="https://discord.gg/mQGPQy5fnd" target="_blank" rel="noopener">
+                <div class="link-icon i-discord">&#x1F4E2;</div>
+                <div class="link-info">
+                  <div class="link-name">Discord</div>
+                  <div class="link-desc">Community server</div>
+                </div>
+                <span class="link-arrow">&#x203A;</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
       </div>
 
+      <!-- Page indicator dots -->
+      <div class="page-dots" id="dots">
+        <span class="active" data-page="0"></span>
+        <span data-page="1"></span>
+      </div>
+
+      <!-- Dock -->
       <div class="dock">
         <a class="app" href="https://corvid-agent.github.io/agent-dashboard/" target="_blank" rel="noopener">
           <div class="app-icon i-dashboard">&#x1F4CA;</div>
@@ -471,17 +660,119 @@
   </div>
 
   <script>
-    /* Live clock */
+    /* ---- Clock ---- */
     function updateClock() {
       var now = new Date();
-      var h = now.getHours().toString().padStart(2, '0');
-      var m = now.getMinutes().toString().padStart(2, '0');
-      document.getElementById('clock').textContent = h + ':' + m;
+      document.getElementById('clock').textContent =
+        now.getHours().toString().padStart(2, '0') + ':' +
+        now.getMinutes().toString().padStart(2, '0');
     }
     updateClock();
     setInterval(updateClock, 15000);
 
-    /* Haptic press feedback */
+    /* ---- Widget date ---- */
+    (function() {
+      var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+      var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      var now = new Date();
+      document.getElementById('widget-date').textContent =
+        days[now.getDay()] + ', ' + months[now.getMonth()] + ' ' + now.getDate();
+    })();
+
+    /* ---- Widget stats from GitHub ---- */
+    (function() {
+      fetch('https://api.github.com/orgs/corvid-agent')
+        .then(function(r) { return r.json(); })
+        .then(function(d) {
+          if (d.public_repos) {
+            document.getElementById('w-repos').textContent = '14';
+            document.getElementById('w-repos-total').textContent = d.public_repos;
+          }
+        })
+        .catch(function() {
+          document.getElementById('w-repos').textContent = '14';
+          document.getElementById('w-repos-total').textContent = '30';
+        });
+    })();
+
+    /* ---- Swipe navigation ---- */
+    (function() {
+      var track = document.getElementById('track');
+      var viewport = document.getElementById('viewport');
+      var dots = document.querySelectorAll('#dots span');
+      var currentPage = 0;
+      var startX = 0;
+      var deltaX = 0;
+      var dragging = false;
+      var threshold = 50;
+
+      function goToPage(n) {
+        currentPage = Math.max(0, Math.min(1, n));
+        track.style.transform = 'translateX(' + (-currentPage * 50) + '%)';
+        dots.forEach(function(d, i) {
+          d.classList.toggle('active', i === currentPage);
+        });
+      }
+
+      /* Touch */
+      viewport.addEventListener('touchstart', function(e) {
+        startX = e.touches[0].clientX;
+        dragging = true;
+        track.classList.add('dragging');
+      }, { passive: true });
+
+      viewport.addEventListener('touchmove', function(e) {
+        if (!dragging) return;
+        deltaX = e.touches[0].clientX - startX;
+        var offset = (-currentPage * 50) + (deltaX / viewport.offsetWidth * 50);
+        offset = Math.max(-50, Math.min(0, offset));
+        track.style.transform = 'translateX(' + offset + '%)';
+      }, { passive: true });
+
+      viewport.addEventListener('touchend', function() {
+        track.classList.remove('dragging');
+        if (deltaX < -threshold) goToPage(currentPage + 1);
+        else if (deltaX > threshold) goToPage(currentPage - 1);
+        else goToPage(currentPage);
+        dragging = false;
+        deltaX = 0;
+      });
+
+      /* Mouse drag */
+      viewport.addEventListener('mousedown', function(e) {
+        startX = e.clientX;
+        dragging = true;
+        track.classList.add('dragging');
+        e.preventDefault();
+      });
+
+      document.addEventListener('mousemove', function(e) {
+        if (!dragging) return;
+        deltaX = e.clientX - startX;
+        var offset = (-currentPage * 50) + (deltaX / viewport.offsetWidth * 50);
+        offset = Math.max(-50, Math.min(0, offset));
+        track.style.transform = 'translateX(' + offset + '%)';
+      });
+
+      document.addEventListener('mouseup', function() {
+        if (!dragging) return;
+        track.classList.remove('dragging');
+        if (deltaX < -threshold) goToPage(currentPage + 1);
+        else if (deltaX > threshold) goToPage(currentPage - 1);
+        else goToPage(currentPage);
+        dragging = false;
+        deltaX = 0;
+      });
+
+      /* Dot clicks */
+      dots.forEach(function(dot) {
+        dot.addEventListener('click', function() {
+          goToPage(parseInt(this.dataset.page));
+        });
+      });
+    })();
+
+    /* ---- Press feedback ---- */
     document.querySelectorAll('.app').forEach(function(app) {
       app.addEventListener('mousedown', function() { this.style.transform = 'scale(0.82)'; });
       app.addEventListener('mouseup', function() { this.style.transform = ''; });
