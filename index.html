@@ -233,7 +233,7 @@
 
     .pages-track {
       display: flex;
-      width: 200%;
+      width: 300%;
       height: 100%;
       transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
@@ -241,7 +241,7 @@
     .pages-track.dragging { transition: none; }
 
     .page {
-      width: 50%;
+      width: 33.333%;
       height: 100%;
       display: flex;
       flex-direction: column;
@@ -478,6 +478,17 @@
     .i-wiki       { background: linear-gradient(135deg, #14b8a6, #0f766e); }
     .i-nft        { background: linear-gradient(135deg, #c084fc, #7e22ce); }
 
+    /* Mac apps */
+    .i-beacon     { background: linear-gradient(135deg, #a78bfa, #6d28d9); }
+    .i-clip       { background: linear-gradient(135deg, #34d399, #059669); }
+    .i-devkit     { background: linear-gradient(135deg, #f97316, #c2410c); }
+    .i-netwatch   { background: linear-gradient(135deg, #38bdf8, #0284c7); }
+    .i-dash       { background: linear-gradient(135deg, #fbbf24, #d97706); }
+    .i-pulse      { background: linear-gradient(135deg, #e879f9, #c026d3); }
+    .i-resolve    { background: linear-gradient(135deg, #60a5fa, #2563eb); }
+    .i-macntop    { background: linear-gradient(135deg, #22d3ee, #0891b2); }
+    .i-ports      { background: linear-gradient(135deg, #f87171, #dc2626); }
+
     /* ---- Focus & a11y ---- */
     .app:focus-visible, .link-item:focus-visible {
       outline: 2px solid var(--accent);
@@ -635,7 +646,86 @@
             </div>
           </div>
 
-          <!-- Page 2: Infrastructure & Links -->
+          <!-- Page 2: Mac Apps & Infrastructure -->
+          <div class="page">
+            <div class="page-2-header">mac apps</div>
+            <div class="link-list">
+              <a class="link-item" href="https://github.com/corvid-agent/Beacon" target="_blank" rel="noopener">
+                <div class="link-icon i-beacon">&#x1F49C;</div>
+                <div class="link-info">
+                  <div class="link-name">Beacon</div>
+                  <div class="link-desc">System monitor — CPU, memory, disk, network</div>
+                </div>
+                <span class="link-arrow">&#x203A;</span>
+              </a>
+              <a class="link-item" href="https://github.com/corvid-agent/Clip" target="_blank" rel="noopener">
+                <div class="link-icon i-clip">&#x1F4CB;</div>
+                <div class="link-info">
+                  <div class="link-name">Clip</div>
+                  <div class="link-desc">Clipboard manager with history and search</div>
+                </div>
+                <span class="link-arrow">&#x203A;</span>
+              </a>
+              <a class="link-item" href="https://github.com/corvid-agent/DevKit" target="_blank" rel="noopener">
+                <div class="link-icon i-devkit">&#x1F6E0;&#xFE0F;</div>
+                <div class="link-info">
+                  <div class="link-name">DevKit</div>
+                  <div class="link-desc">JSON, Base64, UUID, regex, hashing tools</div>
+                </div>
+                <span class="link-arrow">&#x203A;</span>
+              </a>
+              <a class="link-item" href="https://github.com/corvid-agent/Netwatch" target="_blank" rel="noopener">
+                <div class="link-icon i-netwatch">&#x1F4E1;</div>
+                <div class="link-info">
+                  <div class="link-name">Netwatch</div>
+                  <div class="link-desc">Network ping, interfaces, connections</div>
+                </div>
+                <span class="link-arrow">&#x203A;</span>
+              </a>
+              <a class="link-item" href="https://github.com/corvid-agent/Dash" target="_blank" rel="noopener">
+                <div class="link-icon i-dash">&#x26A1;</div>
+                <div class="link-info">
+                  <div class="link-name">Dash</div>
+                  <div class="link-desc">Developer shortcuts and system commands</div>
+                </div>
+                <span class="link-arrow">&#x203A;</span>
+              </a>
+              <a class="link-item" href="https://github.com/corvid-agent/Pulse" target="_blank" rel="noopener">
+                <div class="link-icon i-pulse">&#x1F419;</div>
+                <div class="link-info">
+                  <div class="link-name">Pulse</div>
+                  <div class="link-desc">GitHub activity, PRs, and notifications</div>
+                </div>
+                <span class="link-arrow">&#x203A;</span>
+              </a>
+              <a class="link-item" href="https://github.com/corvid-agent/Resolve" target="_blank" rel="noopener">
+                <div class="link-icon i-resolve">&#x1F50D;</div>
+                <div class="link-info">
+                  <div class="link-name">Resolve</div>
+                  <div class="link-desc">DNS lookup for A, AAAA, MX, CNAME, TXT</div>
+                </div>
+                <span class="link-arrow">&#x203A;</span>
+              </a>
+              <a class="link-item" href="https://github.com/CorvidLabs/MacNTop" target="_blank" rel="noopener">
+                <div class="link-icon i-macntop">&#x1F4CA;</div>
+                <div class="link-info">
+                  <div class="link-name">MacNTop</div>
+                  <div class="link-desc">Process monitor inspired by htop</div>
+                </div>
+                <span class="link-arrow">&#x203A;</span>
+              </a>
+              <a class="link-item" href="https://github.com/CorvidLabs/Ports" target="_blank" rel="noopener">
+                <div class="link-icon i-ports">&#x1F50C;</div>
+                <div class="link-info">
+                  <div class="link-name">Ports</div>
+                  <div class="link-desc">View and manage listening ports</div>
+                </div>
+                <span class="link-arrow">&#x203A;</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Page 3: Infrastructure & Links -->
           <div class="page">
             <div class="page-2-header">infrastructure</div>
             <div class="link-list">
@@ -697,6 +787,7 @@
       <div class="page-dots" id="dots">
         <span class="active" data-page="0"></span>
         <span data-page="1"></span>
+        <span data-page="2"></span>
       </div>
 
       <!-- Dock -->
@@ -749,7 +840,7 @@
         .then(function(r) { return r.json(); })
         .then(function(d) {
           if (d.public_repos) {
-            document.getElementById('w-repos').textContent = '21';
+            document.getElementById('w-repos').textContent = '26';
             document.getElementById('w-repos-total').textContent = d.public_repos;
           }
         })
@@ -764,6 +855,8 @@
       var track = document.getElementById('track');
       var viewport = document.getElementById('viewport');
       var dots = document.querySelectorAll('#dots span');
+      var totalPages = 3;
+      var pageWidth = 100 / totalPages;
       var currentPage = 0;
       var startX = 0;
       var deltaX = 0;
@@ -771,8 +864,8 @@
       var threshold = 50;
 
       function goToPage(n) {
-        currentPage = Math.max(0, Math.min(1, n));
-        track.style.transform = 'translateX(' + (-currentPage * 50) + '%)';
+        currentPage = Math.max(0, Math.min(totalPages - 1, n));
+        track.style.transform = 'translateX(' + (-currentPage * pageWidth) + '%)';
         dots.forEach(function(d, i) {
           d.classList.toggle('active', i === currentPage);
         });
@@ -788,8 +881,8 @@
       viewport.addEventListener('touchmove', function(e) {
         if (!dragging) return;
         deltaX = e.touches[0].clientX - startX;
-        var offset = (-currentPage * 50) + (deltaX / viewport.offsetWidth * 50);
-        offset = Math.max(-50, Math.min(0, offset));
+        var offset = (-currentPage * pageWidth) + (deltaX / viewport.offsetWidth * pageWidth);
+        offset = Math.max(-(totalPages - 1) * pageWidth, Math.min(0, offset));
         track.style.transform = 'translateX(' + offset + '%)';
       }, { passive: true });
 
@@ -813,8 +906,8 @@
       document.addEventListener('mousemove', function(e) {
         if (!dragging) return;
         deltaX = e.clientX - startX;
-        var offset = (-currentPage * 50) + (deltaX / viewport.offsetWidth * 50);
-        offset = Math.max(-50, Math.min(0, offset));
+        var offset = (-currentPage * pageWidth) + (deltaX / viewport.offsetWidth * pageWidth);
+        offset = Math.max(-(totalPages - 1) * pageWidth, Math.min(0, offset));
         track.style.transform = 'translateX(' + offset + '%)';
       });
 
