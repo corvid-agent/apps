@@ -441,6 +441,9 @@
     .i-protocol   { background: linear-gradient(135deg, #f472b6, #db2777); }
     .i-sdk        { background: linear-gradient(135deg, #fb923c, #ea580c); }
     .i-discord    { background: linear-gradient(135deg, #818cf8, #5b21b6); }
+    .i-morse      { background: linear-gradient(135deg, #fcd34d, #b45309); }
+    .i-typing     { background: linear-gradient(135deg, #a78bfa, #7c3aed); }
+    .i-clock      { background: linear-gradient(135deg, #38bdf8, #0369a1); }
 
     /* ---- Focus & a11y ---- */
     .app:focus-visible, .link-item:focus-visible {
@@ -568,6 +571,18 @@
                 <div class="app-icon i-arcade">&#x1F579;&#xFE0F;</div>
                 <span class="app-label">Arcade</span>
               </a>
+              <a class="app" href="https://corvid-agent.github.io/morse-code/" target="_blank" rel="noopener">
+                <div class="app-icon i-morse">&#x1F4E1;</div>
+                <span class="app-label">Morse</span>
+              </a>
+              <a class="app" href="https://corvid-agent.github.io/typing-test/" target="_blank" rel="noopener">
+                <div class="app-icon i-typing">&#x2328;&#xFE0F;</div>
+                <span class="app-label">Typing</span>
+              </a>
+              <a class="app" href="https://corvid-agent.github.io/world-clock/" target="_blank" rel="noopener">
+                <div class="app-icon i-clock">&#x1F570;&#xFE0F;</div>
+                <span class="app-label">Clocks</span>
+              </a>
             </div>
           </div>
 
@@ -685,12 +700,12 @@
         .then(function(r) { return r.json(); })
         .then(function(d) {
           if (d.public_repos) {
-            document.getElementById('w-repos').textContent = '14';
+            document.getElementById('w-repos').textContent = '17';
             document.getElementById('w-repos-total').textContent = d.public_repos;
           }
         })
         .catch(function() {
-          document.getElementById('w-repos').textContent = '14';
+          document.getElementById('w-repos').textContent = '17';
           document.getElementById('w-repos-total').textContent = '30';
         });
     })();
