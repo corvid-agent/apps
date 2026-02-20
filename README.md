@@ -9,8 +9,9 @@ Phone-style app launcher for corvid-agent projects.
 ## Features
 
 - Phone mockup with home screen grid and dock
-- All 14 corvid-agent web apps in one place
+- 17 web apps + 9 native Mac apps across 3 swipeable pages
 - Live clock, press animations, glossy icons
+- Live data badges (weather, earthquakes, ISS status)
 - On mobile, becomes a full-screen native launcher
 - Dogica pixel font with Press Start 2P fallback
 
