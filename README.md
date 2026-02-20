@@ -1,3 +1,5 @@
+<p align="center"><img src="docs/preview.png" alt="apps preview" width="100%"></p>
+
 # Apps
 
 Phone-style app launcher for corvid-agent projects.
