@@ -473,6 +473,7 @@
     .i-playground { background: linear-gradient(135deg, #f97316, #c2410c); }
     .i-radio      { background: linear-gradient(135deg, #ec4899, #be185d); }
     .i-wiki       { background: linear-gradient(135deg, #14b8a6, #0f766e); }
+    .i-nft        { background: linear-gradient(135deg, #c084fc, #7e22ce); }
 
     /* ---- Focus & a11y ---- */
     .app:focus-visible, .link-item:focus-visible {
@@ -624,6 +625,10 @@
                 <div class="app-icon i-wiki">&#x1F4D3;</div>
                 <span class="app-label">Wiki</span>
               </a>
+              <a class="app" href="https://corvid-agent.github.io/nft-gallery/" target="_blank" rel="noopener">
+                <div class="app-icon i-nft">&#x1F5BC;&#xFE0F;</div>
+                <span class="app-label">NFTs</span>
+              </a>
             </div>
           </div>
 
@@ -741,12 +746,12 @@
         .then(function(r) { return r.json(); })
         .then(function(d) {
           if (d.public_repos) {
-            document.getElementById('w-repos').textContent = '20';
+            document.getElementById('w-repos').textContent = '21';
             document.getElementById('w-repos-total').textContent = d.public_repos;
           }
         })
         .catch(function() {
-          document.getElementById('w-repos').textContent = '20';
+          document.getElementById('w-repos').textContent = '21';
           document.getElementById('w-repos-total').textContent = '33';
         });
     })();
