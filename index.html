@@ -336,6 +336,32 @@
       box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
     }
 
+    /* Notification badge */
+    .app-badge {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      min-width: 18px;
+      height: 18px;
+      background: #ef4444;
+      border-radius: 10px;
+      font-size: 8px;
+      font-family: var(--pixel-bold);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 4px;
+      z-index: 2;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+      animation: badge-pop 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    }
+
+    @keyframes badge-pop {
+      from { transform: scale(0); }
+      to { transform: scale(1); }
+    }
+
     /* Gloss overlay */
     .app-icon::after {
       content: '';
@@ -534,7 +560,7 @@
           <!-- Page 1: Apps -->
           <div class="page">
             <div class="app-grid">
-              <a class="app" href="https://corvid-agent.github.io/weather-dashboard/" target="_blank" rel="noopener">
+              <a class="app" href="https://corvid-agent.github.io/weather-dashboard/" target="_blank" rel="noopener" data-badge="weather">
                 <div class="app-icon i-weather">&#x26C5;</div>
                 <span class="app-label">Weather</span>
               </a>
@@ -542,7 +568,7 @@
                 <div class="app-icon i-cinema">&#x1F3AC;</div>
                 <span class="app-label">Cinema</span>
               </a>
-              <a class="app" href="https://corvid-agent.github.io/space-dashboard/" target="_blank" rel="noopener">
+              <a class="app" href="https://corvid-agent.github.io/space-dashboard/" target="_blank" rel="noopener" data-badge="space">
                 <div class="app-icon i-space">&#x1F680;</div>
                 <span class="app-label">Space</span>
               </a>
@@ -558,7 +584,7 @@
                 <div class="app-icon i-poetry">&#x1F4DC;</div>
                 <span class="app-label">Poetry</span>
               </a>
-              <a class="app" href="https://corvid-agent.github.io/quake-tracker/" target="_blank" rel="noopener">
+              <a class="app" href="https://corvid-agent.github.io/quake-tracker/" target="_blank" rel="noopener" data-badge="quake">
                 <div class="app-icon i-quake">&#x1F30D;</div>
                 <span class="app-label">Quake</span>
               </a>
@@ -810,6 +836,63 @@
       app.addEventListener('touchstart', function() { this.style.transform = 'scale(0.82)'; }, { passive: true });
       app.addEventListener('touchend', function() { this.style.transform = ''; }, { passive: true });
     });
+
+    /* ---- Live badges ---- */
+    function setBadge(key, text) {
+      var app = document.querySelector('[data-badge="' + key + '"]');
+      if (!app) return;
+      var icon = app.querySelector('.app-icon');
+      var existing = icon.querySelector('.app-badge');
+      if (existing) existing.remove();
+      if (!text) return;
+      var badge = document.createElement('span');
+      badge.className = 'app-badge';
+      badge.textContent = text;
+      icon.appendChild(badge);
+    }
+
+    /* Weather: current temp from Open-Meteo */
+    (function() {
+      if (!navigator.geolocation) return;
+      navigator.geolocation.getCurrentPosition(function(pos) {
+        var lat = pos.coords.latitude.toFixed(2);
+        var lon = pos.coords.longitude.toFixed(2);
+        fetch('https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lon + '&current_weather=true')
+          .then(function(r) { return r.json(); })
+          .then(function(d) {
+            if (d.current_weather) {
+              setBadge('weather', Math.round(d.current_weather.temperature) + '\u00B0');
+            }
+          })
+          .catch(function() {});
+      }, function() {});
+    })();
+
+    /* Quake: recent earthquake count (last hour) */
+    (function() {
+      fetch('https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson')
+        .then(function(r) { return r.json(); })
+        .then(function(d) {
+          if (d.metadata && d.metadata.count > 0) {
+            setBadge('quake', String(d.metadata.count));
+          }
+        })
+        .catch(function() {});
+    })();
+
+    /* Space: ISS visible pass or just show "LIVE" */
+    (function() {
+      fetch('https://api.wheretheiss.at/v1/satellites/25544')
+        .then(function(r) { return r.json(); })
+        .then(function(d) {
+          if (d.visibility === 'daylight') {
+            setBadge('space', 'DAY');
+          } else {
+            setBadge('space', 'ISS');
+          }
+        })
+        .catch(function() {});
+    })();
   </script>
 </body>
 </html>
